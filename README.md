@@ -1,4 +1,4 @@
-This is my attempt at implementing a red black tree. It works on any data structure that has defined operators of less than, greater than, and equal to.
+This is my attempt at implementing a red black tree. It works on any data type that has defined operators of less than, greater than, and equal to.
 
 Would like to practice
 - Unique & shared pointers
