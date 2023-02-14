@@ -2,20 +2,26 @@ namespace RB {
     // NODE DEFINITIONS
     template <typename T> Node<T>::Node(T const arg)
     {
-        this->val = arg;
-        this->isRed = true;
+        val = arg;
+        isRed = true;
 
-        this->left = nullptr;
-        this->right = nullptr;
-        this->parent = nullptr;
+        left = nullptr;
+        right = nullptr;
+        parent = nullptr;
     }
 
 
     // RED BLACK DEFINITIONS
     template <typename T> RedBlack<T>::RedBlack()
     {
-        this-> root = nullptr;
+        root = nullptr;
     }
+
+    template <typename T> RedBlack<T>::~RedBlack()
+    {
+        recursive_destroy(root);
+    }
+
     template <typename T> Node<T>* RedBlack<T>::search(T desired_val, Node<T>* start)
     {
         if (start == nullptr)
@@ -103,13 +109,55 @@ namespace RB {
             node_to_insert->parent = prior_ptr;
         }
 
-        // TO DO
-        balance_tree(node_to_insert);
+        insert_balance(node_to_insert);
 
     }
 
-    template <typename T> void RedBlack<T>::balance_tree(Node<T>* inserted_node)
+    template <typename T> void RedBlack<T>::insert_balance(Node<T>* inserted_node)
     {
-        // TO DO
+        // TODO
+    }
+
+    template <typename T> void RedBlack<T>::rotate_right(Node<T>* x)
+    {
+        // TODO
+    }
+
+    template <typename T> void RedBlack<T>::rotate_left(Node<T>* x)
+    {
+        // TODO
+    }
+
+    // Recursive function risks stack overflow, but I think that'd be pretty hard to do with an RedBlack tree.
+    template <typename T> void RedBlack<T>::recursive_destroy(Node<T>* node)
+    {
+        if (node)
+        {
+            recursive_destroy(node->left);
+            recursive_destroy(node->right);
+            delete node;
+        }
+    }
+
+    template <typename T> void RedBlack<T>::print_tree(const std::string& prefix, const Node<T>* node, bool isLeft)
+    {
+        if( node != nullptr )
+        {
+            std::cout << prefix;
+
+            std::cout << (isLeft ? "├──" : "└──" );
+
+            // print the value and color of the node
+            std::cout << node->val << (node->isRed ? "/R" : "/B") << std::endl;
+
+            // enter the next tree level - left and right branch
+            print_tree( prefix + (isLeft ? "│   " : "    "), node->left, true);
+            print_tree( prefix + (isLeft ? "│   " : "    "), node->right, false);
+        }
+    }
+
+    template <typename T> void RedBlack<T>::print_tree(const Node<T>* node)
+    {
+        print_tree("", node, false);
     }
 } // Namespace RedBlack
