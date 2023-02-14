@@ -1,8 +1,7 @@
 #ifndef REDBLACK_HPP
 #define REDBLACK_HPP
-#include <cstdio>
+
 #include <iostream>
-#include <stdlib.h>
 
 namespace RB {
 

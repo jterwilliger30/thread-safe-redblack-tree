@@ -1,8 +1,5 @@
 #include "./RedBlack.hpp"
 
-#include <iostream>
-#include <string>
-
 int main()
 {
 

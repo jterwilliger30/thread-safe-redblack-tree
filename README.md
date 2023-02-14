@@ -4,7 +4,7 @@ This is my attempt at implementing a red black tree. It works on any data type t
 - This program can only be compiled with C++ 11 ir later.
 
 Concepts to practice:
-- Template metaprogramming... I don't think I've ever been this frustrated with syntax before. The compiler is very picky when you have separtate header and implementation files.
+- Template metaprogramming... I don't think I've ever been this frustrated with syntax before. The compiler is very picky about template declarations vs definitions. Lesson learned: templates are not themselves classes. The compiler uses them to make separate classes.
 - Ternary operators
 
 TO DO
