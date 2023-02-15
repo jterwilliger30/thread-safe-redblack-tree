@@ -23,9 +23,9 @@ namespace RB {
     template <typename T> class RedBlack
     {
     private:
-        void insert_balance(Node<T>*);
-        void rotate_right(Node<T>*);
-        void rotate_left(Node<T>*);
+        Node<T>* rotate_right(Node<T>*);
+        Node<T>* rotate_left(Node<T>*);
+        void flip_colors(Node<T>*);
 
         void recursive_destroy(Node<T>*);
 

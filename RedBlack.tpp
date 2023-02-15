@@ -1,5 +1,6 @@
 namespace RB {
-    // NODE DEFINITIONS
+    /****  NODE DEFINITIONS  ****/
+    // Constructor
     template <typename T> Node<T>::Node(T const arg)
     {
         val = arg;
@@ -11,12 +12,14 @@ namespace RB {
     }
 
 
-    // RED BLACK DEFINITIONS
+    /****  RED BLACK DEFINITIONS  ****/
+    // Constructor
     template <typename T> RedBlack<T>::RedBlack()
     {
         root = nullptr;
     }
 
+    // Destructor
     template <typename T> RedBlack<T>::~RedBlack()
     {
         recursive_destroy(root);
@@ -62,8 +65,8 @@ namespace RB {
         // Empty tree (root == nullptr)
         if (root == nullptr)
         {
-        root = node_to_insert;
-        root->isRed = false;
+            root = node_to_insert;
+            root->isRed = false;
         }
 
         else
@@ -86,8 +89,8 @@ namespace RB {
                 }
                 else
                 {
-                    // DO SOMETHING OTHER THAN COUT
-                    //std::cout << "EXCEPTION" << std::endl;
+                    // This control path should never be executed...
+                    //throw std::logic_error;
                 }
             }
 
@@ -102,33 +105,54 @@ namespace RB {
             }
             else
             {
-                // DO SOMETHING OTHER THAN COUT
-                //std::cout << "EXCEPTION" << std::endl;
+                // This control path should never be executed...
+                    //throw std::logic_error;
             }
 
             node_to_insert->parent = prior_ptr;
         }
 
-        insert_balance(node_to_insert);
+        // Maintain root = black invariant.
+        root->isRed = false;
 
     }
 
-    template <typename T> void RedBlack<T>::insert_balance(Node<T>* inserted_node)
+    template <typename T> Node<T>* RedBlack<T>::rotate_right(Node<T>* h)
     {
-        // TODO
+        assert(h->left->isRed);
+
+        Node<T>* x = h->left;
+        h->left = x->right;
+        x->right = h;
+        x->isRed = h->isRed;
+        h->isRed = true;
+
+        return x;
     }
 
-    template <typename T> void RedBlack<T>::rotate_right(Node<T>* x)
+    template <typename T> Node<T>* RedBlack<T>::rotate_left(Node<T>* h)
     {
-        // TODO
+        assert(h->right->isRed);
+
+        Node<T>* x = h->right;
+        h->right = x->left;
+        x->left = h;
+        x->isRed = h->isRed;
+        h->isRed = true;
     }
 
-    template <typename T> void RedBlack<T>::rotate_left(Node<T>* x)
+    template <typename T> void RedBlack<T>::flip_colors(Node<T>* h)
     {
-        // TODO
+        assert(!h->isRed);
+        assert(h->left->isRed);
+        assert(h->right->isRed);
+
+        h->isRed = true;
+        h->left->isRed = false;
+        h->right->isRed = false;
     }
 
-    // Recursive function risks stack overflow, but I think that'd be pretty hard to do with an RedBlack tree.
+    // Recursive function risks stack overflow, but I think that'd be pretty hard to do with a (balanced) RedBlack tree.
     template <typename T> void RedBlack<T>::recursive_destroy(Node<T>* node)
     {
         if (node)
@@ -139,6 +163,7 @@ namespace RB {
         }
     }
 
+    // Recursive function risks stack overflow...
     template <typename T> void RedBlack<T>::print_tree(const std::string& prefix, const Node<T>* node, bool isLeft)
     {
         if( node != nullptr )
@@ -150,7 +175,7 @@ namespace RB {
             // print the value and color of the node
             std::cout << node->val << (node->isRed ? "/R" : "/B") << std::endl;
 
-            // enter the next tree level - left and right branch
+            // Recursive calls on left and right child nodes...
             print_tree( prefix + (isLeft ? "│   " : "    "), node->left, true);
             print_tree( prefix + (isLeft ? "│   " : "    "), node->right, false);
         }
@@ -160,4 +185,6 @@ namespace RB {
     {
         print_tree("", node, false);
     }
+
+
 } // Namespace RedBlack
