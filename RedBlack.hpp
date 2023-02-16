@@ -27,6 +27,8 @@ namespace RB {
         Node<T>* rotate_left(Node<T>*);
         void flip_colors(Node<T>*);
 
+        bool isRed(Node<T>*);
+
         void recursive_destroy(Node<T>*);
 
     public:

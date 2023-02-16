@@ -119,7 +119,7 @@ namespace RB {
 
     template <typename T> Node<T>* RedBlack<T>::rotate_right(Node<T>* h)
     {
-        assert(h->left->isRed);
+        assert(isRed(h->left));
 
         Node<T>* x = h->left;
         h->left = x->right;
@@ -132,24 +132,41 @@ namespace RB {
 
     template <typename T> Node<T>* RedBlack<T>::rotate_left(Node<T>* h)
     {
-        assert(h->right->isRed);
+        assert(isRed(h->right));
 
         Node<T>* x = h->right;
         h->right = x->left;
         x->left = h;
         x->isRed = h->isRed;
         h->isRed = true;
+
+        return x;
     }
 
     template <typename T> void RedBlack<T>::flip_colors(Node<T>* h)
     {
-        assert(!h->isRed);
-        assert(h->left->isRed);
-        assert(h->right->isRed);
+        assert(!isRed(h));
+        assert(isRed(h->left));
+        assert(isRed(h->right));
 
         h->isRed = true;
         h->left->isRed = false;
         h->right->isRed = false;
+    }
+
+    // This function exists to avoid de-referencing nullptr error caused by checking h->isRed directly.
+    template <typename T> bool RedBlack<T>::isRed(Node<T>* h)
+    {
+        if (h == nullptr)
+        {
+            return false;
+        }
+
+        else
+        {
+            return h->isRed;
+        }
+
     }
 
     // Recursive function risks stack overflow, but I think that'd be pretty hard to do with a (balanced) RedBlack tree.
