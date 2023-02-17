@@ -38,6 +38,7 @@ namespace RB {
         Node<T>* root;
 
         void insert(T);
+        T pop(T);
 
         Node<T>* search(T desired_val, Node<T>*);
         Node<T>* search(T desired_val);
@@ -52,7 +53,7 @@ namespace RB {
 } // Namespace RedBlack
 
 /* VERY IMPORTANT!!! Template implementation MUST be located in the header file. 
-Otherwise the compiler cannot make class instantiations for each type. Repeat after me: templates are templates. They are not classes. */
+Otherwise the compiler cannot make class definition for each type. */
 #include "./RedBlack.tpp"
 
 #endif

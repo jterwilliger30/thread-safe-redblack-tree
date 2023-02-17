@@ -117,6 +117,11 @@ namespace RB {
 
     }
 
+    template <typename T> T RedBlack<T>::pop(T value)
+    {
+
+    }
+
     template <typename T> Node<T>* RedBlack<T>::rotate_right(Node<T>* h)
     {
         assert(isRed(h->left));
